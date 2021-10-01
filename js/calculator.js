@@ -47,6 +47,15 @@ function inputDigit(digit) {
 }
 
 function inputDecimal(dot) {
+
+    // if decimal point is clicked after selecting an operator, it gets appended to the first operand instead of being part of the second
+    // bug fix: performing an operation on the decimal value, resetting the waitingForSecondOperand to false as the operation has been performed
+    if (calculator.waitingForSecondOperand === true) {
+        calculator.displayValue = '0.'
+        calculator.waitingForSecondOperand = false;
+        return;
+    }
+
     // If the displayValue property DOES NOT contain a decimal point yet
     if (!calculator.displayValue.includes(dot)) {
         calculator.displayValue += dot;
@@ -58,6 +67,14 @@ function handleOperator(nextOperator) {
     const { firstOperand, displayValue, operator } = calculator;
 
     const inputValue = parseFloat(displayValue);
+
+    // checks to see if an operator already exists and if waitingForSecondOperand is set to true
+    // if its true, the value of the operator property would be replaced with the new operator and the function exits so that no calculations would be performed
+    if (operator && calculator.waitingForSecondOperand) {
+        calculator.operator = nextOperator;
+        console.log(calculator);
+        return;
+    }
 
     // verifying that firstOperand is null and inputValue has a defined value
     if (firstOperand === null && !isNaN(inputValue)) {
@@ -95,6 +112,16 @@ function calculate(firstOperand, secondOperand, operator) {
     return secondOperand;
 }
 
+// sets all properties of the calculator object to its original values
+function resetCalculator() {
+    calculator.displayValue = '0';
+    calculator.firstOperand = null;
+    calculator.waitingForSecondOperand = false;
+    calculator.operator = null;
+    console.log(calculator);
+}
+
+
 function updateDisplay() {
     const currInput = document.querySelector(".calculator-screen");
     currInput.value = calculator.displayValue;
@@ -127,7 +154,8 @@ keys.addEventListener('click', (event) => {
     }
 
     if (target.classList.contains("all-clear")) {
-        console.log("clear", target.value);
+        resetCalculator();
+        updateDisplay();
         return;
     }
 
