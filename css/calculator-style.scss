@@ -1,3 +1,14 @@
+@import "../partials/color_pallete";
+
+@font-face {
+	font-family: digital-font;
+	src: url("../misc/fonts/Digital7-1e1Z.ttf");
+}
+
+* {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
 html {
 	font-size: 62.5%;
 	box-sizing: border-box;
@@ -12,7 +23,7 @@ html {
 }
 
 .calculator {
-	border: 1px solid #ccc;
+	border: 2px solid #ccc;
 	border-radius: 5px;
 	position: absolute;
 	top: 50%;
@@ -23,10 +34,11 @@ html {
 	&-screen {
 		width: 100%;
 		font-size: 5rem;
-		height: 80px;
-		border: none;
-		background-color: #252525;
-		color: #fff;
+		height: 1.5em;
+		border: #c4c4c4;
+		background-color: $calc-screen;
+		font-family: digital-font;
+		color: $calc-screen-font;
 		text-align: right;
 		padding-right: 20px;
 		padding-left: 10px;
@@ -35,12 +47,12 @@ html {
 
 button {
 	height: 60px;
-	background-color: #fff;
+	background-color: $operator-button;
 	border-radius: 3px;
 	border: 1px solid #c4c4c4;
 	background-color: transparent;
 	font-size: 2rem;
-	color: #333;
+	color: $font-button-color;
 	background-image: linear-gradient(
 		to bottom,
 		transparent,
@@ -55,39 +67,45 @@ button {
 	cursor: pointer;
 
 	&:hover {
-		background-color: #eaeaea;
+		background-color: $theme-color-3;
 	}
 }
 
 .operator {
-	color: #337cac;
+	color: $theme-color-3;
+	background-color: $operator-button;
+
+	&:hover {
+		background-color: $font-button-color;
+	}
 }
 
 .all-clear {
-	background-color: #f0595f;
-	border-color: #b0353a;
-	color: #fff;
+	background-color: $all-clear-button;
+	border-color: $all-clear-border;
+	color: $font-button-color;
 
 	&:hover {
-		background-color: #f17377;
+		background-color: $all-clear-hover;
 	}
 }
 
 .equal-sign {
-	background-color: #2e86c0;
-	border-color: #337cac;
-	color: #fff;
+	background-color: $equal-sign-button;
+	border-color: $equal-sign-border;
+	color: $font-button-color;
 	height: 100%;
 	grid-area: 2 / 4 / 6 / 5;
 
 	&:hover {
-		background-color: #4e9ed4;
+		background-color: $equal-sign-hover;
 	}
 }
 
 .calculator-keys {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-gap: 20px;
+	grid-gap: 15px;
 	padding: 20px;
+	background-color: $theme-color-2;
 }
