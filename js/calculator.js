@@ -1,4 +1,5 @@
 import { inputDigit, inputDecimal, handleOperator, calculate, resetCalculator, updateDisplay } from "../modules/calc-operations.js";
+import { keypress } from "../modules/keypress.js";
 
 // prev val
 // curr input val
@@ -46,4 +47,9 @@ keys.addEventListener('click', (event) => {
 
     updateDisplay();
 
+});
+
+// Keyup event listener 
+document.addEventListener('keydown', (event) => {
+    keypress(event);
 });
